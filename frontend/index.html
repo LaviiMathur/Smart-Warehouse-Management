@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Warehouse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-6">
+    <h1 class="text-2xl font-bold mb-4">Warehouse Products</h1>
+
+    <div class="absolute top-6 right-6">
+      <button
+        id="btnAddProduct"
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Add Product
+      </button>
+
+      <button
+        id="btnSimulateSpike"
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        Simulate Spike
+      </button>
+
+      <button id="btnReport" class="bg-blue-500 text-white px-4 py-2 rounded">
+        Reorder Report
+      </button>
+    </div>
+    <!-- Add product form -->
+    <div id="formContainer" class="mb-6 hidden">
+      <form id="addProductForm" class="space-y-2">
+        <input
+          type="text"
+          placeholder="Product Name"
+          id="name"
+          name="name"
+          class="p-2 border rounded w-full"
+        />
+
+        <input
+          type="number"
+          placeholder="Current Stock"
+          id="stock"
+          name="stock"
+          class="p-2 border rounded w-full"
+        />
+
+        <input
+          type="number"
+          placeholder="Daily Sales"
+          id="dailySales"
+          name="dailySales"
+          class="p-2 border rounded w-full"
+        />
+
+        <input
+          type="number"
+          placeholder="Lead Time (days)"
+          id="leadTime"
+          name="leadTime"
+          class="p-2 border rounded w-full"
+        />
+
+        <input
+          type="number"
+          placeholder="Min Reorder Qty"
+          id="minReorder"
+          name="minReorder"
+          class="p-2 border rounded w-full"
+        />
+
+        <input
+          type="number"
+          placeholder="Cost per Unit"
+          id="cost"
+          name="cost"
+          class="p-2 border rounded w-full"
+        />
+        <select
+          name="criticality"
+          id="criticality"
+          class="p-2 border rounded w-full"
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Add Product
+        </button>
+      </form>
+    </div>
+    <!-- reorder report -->
+    <div id="reportContainer" class="hidden">
+      <h2 class="text-xl font-semibold mb-2">Reorder Report</h2>
+      <table class="min-w-full bg-white border">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="py-2 px-4 border">Product</th>
+            <th class="py-2 px-4 border">Current Stock</th>
+            <th class="py-2 px-4 border">Days Remaining</th>
+            <th class="py-2 px-4 border">Reorder Qty</th>
+            <th class="py-2 px-4 border">Reorder Cost</th>
+            <th class="py-2 px-4 border">Message</th>
+          </tr>
+        </thead>
+        <tbody id="reportTableBody"></tbody>
+      </table>
+    </div>
+    <!-- Simulate Spike Form  -->
+    <div id="simulateSpikeContainer" class="mb-6 hidden">
+      <h2 class="text-xl font-semibold mb-2">Simulate Demand Spike</h2>
+      <form id="simulateSpikeForm" class="space-y-2">
+        <select
+          name="productId"
+          class="p-2 border rounded w-full"
+          id="spikeProductSelect"
+        ></select>
+        <input
+          type="number"
+          name="multiplier"
+          placeholder="Sales Multiplier"
+          class="p-2 border rounded w-full"
+        />
+        <input
+          type="number"
+          name="spikeDays"
+          placeholder="Sales Spikes Days"
+          class="p-2 border rounded w-full"
+        />
+        <button
+          type="submit"
+          class="bg-yellow-500 text-white px-4 py-2 rounded"
+        >
+          Simulate
+        </button>
+      </form>
+    </div>
+    <!-- Spike table -->
+    <div id="spikeReportContainer" class="hidden mt-6">
+      <h2 class="text-xl font-semibold mb-2">Spike Simulation Result</h2>
+      <table class="min-w-full bg-white border">
+        <thead>
+          <tr class="bg-gray-200">
+            <th class="py-2 px-4 border">Product</th>
+            <th class="py-2 px-4 border">Original Stock</th>
+            <th class="py-2 px-4 border">Original Daily Sales</th>
+            <th class="py-2 px-4 border">Spike Multiplier</th>
+            <th class="py-2 px-4 border">Spike Days</th>
+            <th class="py-2 px-4 border">New Daily Sales</th>
+            <th class="py-2 px-4 border">New Stock</th>
+          </tr>
+        </thead>
+        <tbody id="spikeReportBody">
+          <!-- Filled by JS -->
+        </tbody>
+      </table>
+    </div>
+    <!-- Product Table -->
+    <table class="min-w-full bg-white border">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="py-2 px-4 border">Product</th>
+          <th class="py-2 px-4 border">Current Stock</th>
+          <th class="py-2 px-4 border">Daily Sales</th>
+          <th class="py-2 px-4 border">Lead Time</th>
+          <th class="py-2 px-4 border">Min Reorder Qty</th>
+          <th class="py-2 px-4 border">Cost per Unit</th>
+        </tr>
+      </thead>
+      <tbody id="productTableBody">
+        <!-- Rows inserted by JS -->
+      </tbody>
+    </table>
+
+    <script src="script.js"></script>
+  </body>
+</html>
